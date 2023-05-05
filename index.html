@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Quotes</title>
+    <link rel="stylesheet" href="index.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Nunito:wght@300&family=Sigmar&family=Source+Code+Pro&display=swap"
+        rel="stylesheet" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500&family=Nunito:wght@300&family=Sigmar&family=Source+Code+Pro&display=swap"
+        rel="stylesheet" />
+</head>
+
+<body>
+    <div class="main_container">
+        <center>
+            <h1 class="heading">Motivational Quotes</h1>
+            <div class="text">
+                <div id="quotes"></div>
+                <div class="au">
+                    <label for="">By ~</label>
+                    <div id="author"></div>
+                </div>
+            </div>
+            <button id="btn">new quotes</button>
+        </center>
+    </div>
+
+    <script>
+        const quotes = document.getElementById("quotes");
+        const author = document.getElementById("author");
+        const btn = document.getElementById("btn");
+        let realData = "";
+
+        const getNewQuotes = () => {
+            let rnum = Math.floor(Math.random() * 100);
+            // console.log(rnum);
+            quotes.innerHTML = `${realData[rnum].text}`;
+            author.innerHTML = `${realData[rnum].author}`;
+        };
+
+        const getQuotes = async () => {
+            const api = "https://type.fit/api/quotes";
+            try {
+                let data = await fetch(api);
+                realData = await data.json();
+                getNewQuotes();
+                // console.log(realData);
+            } catch (err) { }
+        };
+        btn.addEventListener("click", getNewQuotes);
+        getQuotes();
+    </script>
+</body>
+
+</html>
